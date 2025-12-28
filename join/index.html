@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoindre la ligue - Pytha Draw</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #FAFAFA;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 90%;
+            width: 300px;
+        }
+        h1 { font-size: 20px; margin-bottom: 10px; }
+        p { color: #666; font-size: 14px; margin-bottom: 30px; }
+        .btn {
+            background-color: #FF7F50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .small-link { font-size: 12px; color: #999; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pytha Draw</h1>
+        <p>Ouverture de la ligue en cours...</p>
+        <a id="appLink" href="#" class="btn">Ouvrir dans l'App</a>
+        <br>
+        <a id="storeLink" href="#" class="small-link">Je n'ai pas l'application</a>
+    </div>
+
+    <script type="text/javascript">
+        // 1. Récupération du code
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+
+        // Votre ID App Store
+        const appStoreId = "6755034099"; 
+
+        // Gestion de l'affichage
+        if (!code) {
+            // Si quelqu'un va sur /join sans code, on le renvoie sur l'accueil
+            window.location.href = "https://www.pytha.app/";
+        } else {
+            const appDeepLink = "pythadraw://join?code=" + code;
+            const appStoreLink = "https://apps.apple.com/app/id" + appStoreId;
+
+            document.getElementById("appLink").href = appDeepLink;
+            document.getElementById("storeLink").href = appStoreLink;
+
+            // Tentative d'ouverture
+            window.location.href = appDeepLink;
+
+            // Fallback visuel
+            setTimeout(function() {
+                document.querySelector("p").innerText = "Si l'app ne s'ouvre pas, cliquez ci-dessous :";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
