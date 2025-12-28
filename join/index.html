@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rejoindre la ligue - Pytha Draw</title>
+    <title>Join the League - Pytha Draw</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -28,7 +28,7 @@
         h1 { font-size: 20px; margin-bottom: 10px; }
         p { color: #666; font-size: 14px; margin-bottom: 30px; }
         .btn {
-            background-color: #FF7F50;
+            background-color: #FF7F50; /* Coral */
             color: white;
             padding: 12px 24px;
             text-decoration: none;
@@ -43,23 +43,23 @@
 <body>
     <div class="container">
         <h1>Pytha Draw</h1>
-        <p>Ouverture de la ligue en cours...</p>
-        <a id="appLink" href="#" class="btn">Ouvrir dans l'App</a>
+        <p>Joining the league...</p>
+        <a id="appLink" href="#" class="btn">Open App</a>
         <br>
-        <a id="storeLink" href="#" class="small-link">Je n'ai pas l'application</a>
+        <a id="storeLink" href="#" class="small-link">I don't have the app</a>
     </div>
 
     <script type="text/javascript">
-        // 1. Récupération du code
+        // 1. Get code from URL
         const params = new URLSearchParams(window.location.search);
         const code = params.get('code');
 
-        // Votre ID App Store
+        // Your App Store ID
         const appStoreId = "6755034099"; 
 
-        // Gestion de l'affichage
+        // Logic
         if (!code) {
-            // Si quelqu'un va sur /join sans code, on le renvoie sur l'accueil
+            // Redirect to main site if no code
             window.location.href = "https://www.pytha.app/";
         } else {
             const appDeepLink = "pythadraw://join?code=" + code;
@@ -68,12 +68,12 @@
             document.getElementById("appLink").href = appDeepLink;
             document.getElementById("storeLink").href = appStoreLink;
 
-            // Tentative d'ouverture
+            // Attempt to open app
             window.location.href = appDeepLink;
 
-            // Fallback visuel
+            // Fallback text change
             setTimeout(function() {
-                document.querySelector("p").innerText = "Si l'app ne s'ouvre pas, cliquez ci-dessous :";
+                document.querySelector("p").innerText = "If the app doesn't open, click below:";
             }, 2500);
         }
     </script>
