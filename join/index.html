@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join the League - Pytha Draw</title>
     
-    <!-- 1. Import de la police Fredoka depuis Google Fonts -->
+    <!-- 1. Import de la police Fredoka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         body {
-            /* 2. Application de la police Fredoka */
-            font-family: 'Fredoka', sans-serif; 
+            /* Application de la police Fredoka */
+            font-family: 'Fredoka', sans-serif;
             background-color: #FAFAFA;
             color: #333;
             display: flex;
@@ -30,38 +30,86 @@
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             max-width: 90%;
-            /* J'ai ajouté une largeur fixe pour que ça ressemble à une carte, supprimez la ligne suivante si vous voulez */
-            width: 400px; 
-        }
-
-        /* 3. Style pour centrer et dimensionner le logo */
-        .logo {
-            width: 150px; /* Vous pouvez changer cette valeur (ex: 200px) */
-            height: auto;
-            display: block;
-            margin: 0 auto 30px auto; /* 0 auto = centré horizontalement */
+            width: 320px; /* Largeur fixe agréable pour mobile */
         }
         
-        /* Style simple pour les liens (optionnel) */
-        a {
-            color: #007AFF;
+        /* Style du Logo */
+        .logo {
+            width: 150px;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px auto;
+        }
+
+        h1 { font-size: 24px; margin-bottom: 10px; margin-top: 0; }
+        p { color: #666; font-size: 16px; margin-bottom: 30px; line-height: 1.4; }
+
+        /* Style du bouton "Open App" */
+        .btn {
+            background-color: #FF7F50; /* Votre couleur Coral originale */
+            color: white;
+            padding: 15px 24px;
             text-decoration: none;
-            font-weight: bold;
+            border-radius: 12px;
+            font-weight: 500; /* Un peu plus gras pour le bouton */
+            display: block;
+            margin-bottom: 20px;
+            transition: transform 0.1s ease;
+        }
+        .btn:active { transform: scale(0.98); }
+
+        /* Style du lien App Store */
+        .small-link { 
+            font-size: 14px; 
+            color: #999; 
+            text-decoration: underline; 
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- 4. Votre Logo SVG (les espaces sont remplacés par %20) -->
-        <img src="Logo%20Pytha%20Draw.svg" alt="Logo Pytha Draw" class="logo">
-
-        <!-- Ici vous pouvez remettre votre texte ou vos boutons -->
-        <h1>Join the League</h1>
-        <p>
-            <a href="#">Download on the Apple Store</a>
-        </p>
+        <!-- LE LOGO (Espaces remplacés par %20) -->
+        <img src="Logo%20Pytha%20Draw.svg" alt="Pytha Draw Logo" class="logo">
+        
+        <h1>Pytha Draw</h1>
+        <p>Joining the league...</p>
+        
+        <!-- Les boutons avec les ID pour que le script fonctionne -->
+        <a id="appLink" href="#" class="btn">Open App</a>
+        
+        <a id="storeLink" href="#" class="small-link">Download on the Apple Store</a>
     </div>
 
+    <!-- VOTRE SCRIPT FONCTIONNEL ORIGINAL -->
+    <script type="text/javascript">
+        // 1. Get code from URL
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+
+        // Your App Store ID
+        const appStoreId = "6755034099"; 
+
+        // Logic
+        if (!code) {
+            // Redirect to main site if no code
+            window.location.href = "https://www.pytha.app/";
+        } else {
+            const appDeepLink = "pythadraw://join?code=" + code;
+            const appStoreLink = "https://apps.apple.com/app/id" + appStoreId;
+
+            // Update DOM elements with correct links
+            document.getElementById("appLink").href = appDeepLink;
+            document.getElementById("storeLink").href = appStoreLink;
+
+            // Attempt to open app immediately
+            window.location.href = appDeepLink;
+
+            // Fallback text change if app doesn't open
+            setTimeout(function() {
+                document.querySelector("p").innerText = "If the app doesn't open, click below:";
+            }, 2500);
+        }
+    </script>
 </body>
 </html>
